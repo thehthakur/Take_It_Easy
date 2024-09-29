@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{he2016}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 770--778, 2016.
+
+\bibitem{jia2019}
+Zhihao Jia, James Thomas, Todd Warszawski, Mingyu Gao, Matei Zaharia, and Alex
+  Aiken.
+\newblock Optimizing dnn computation with relaxed graph substitutions.
+\newblock {\em Proceedings of Machine Learning and Systems}, 1:27--39, 2019.
+
+\end{thebibliography}
