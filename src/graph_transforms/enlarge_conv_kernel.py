@@ -3,7 +3,7 @@ import onnx
 from onnx import numpy_helper
 from typing import List
 
-def enlarge_conv_kernel(model: onnx.onnx_ml_pb2.ModelProto, node_to_modify: str, enlarged_kernel_size: List[int], sub_num: int) -> None:
+def enlarge_conv_kernel(model: onnx.onnx_ml_pb2.ModelProto, node_to_modify: str, enlarged_kernel_size: List[int]) -> onnx.onnx_ml_pb2.ModelProto:
     graph = model.graph
     
     # Step 1: Find the Conv node and modify its kernel size attribute
@@ -43,11 +43,8 @@ def enlarge_conv_kernel(model: onnx.onnx_ml_pb2.ModelProto, node_to_modify: str,
 
             print(f"Updated weight shape: {new_weights.shape}")
             break
-
-    output_model_path = f"substitution{sub_num}_conv_graph.onnx"
-    onnx.save(model, output_model_path)
-    print(f"Model saved as {output_model_path}")
+    return model
 
 # example usage
 # model = onnx.load("../../assets/onnx_files/example_1_initial_model.onnx")
-# enlarge_conv_kernel(model=model, node_to_modify="Conv2", enlarged_kernel_size=[3, 3], sub_num=1) 
+# transformed_model = enlarge_conv_kernel(model=model, node_to_modify="Conv2", enlarged_kernel_size=[3, 3]) 
