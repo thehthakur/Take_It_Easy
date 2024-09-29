@@ -49,5 +49,5 @@ def enlarge_conv_kernel(model: onnx.onnx_ml_pb2.ModelProto, node_to_modify: str,
     print(f"Model saved as {output_model_path}")
 
 # example usage
-model = onnx.load("../../assets/onnx_files/example_1_initial_model.onnx")
-enlarge_conv_kernel(model=model, node_to_modify="Conv2", enlarged_kernel_size=[3, 3], sub_num=1) 
+# model = onnx.load("../../assets/onnx_files/example_1_initial_model.onnx")
+# enlarge_conv_kernel(model=model, node_to_modify="Conv2", enlarged_kernel_size=[3, 3], sub_num=1) 
