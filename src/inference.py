@@ -37,8 +37,7 @@ def inference_time(onnx_model):
     print(f"Inference time: {inference_time:.6f} seconds")
     return inference_time
 
-
-def main():
+if __name__ == "__main__":
     model = keras.applications.MobileNetV2(weights='imagenet')
     model_input_shape = model.input_shape[1:]
 
@@ -52,7 +51,3 @@ def main():
 
     onnx_model = onnx.load(onnx_model_path)
     inference_time(onnx_model)
-
-
-if __name__ == "__main__":
-    main()
