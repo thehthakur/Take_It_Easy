@@ -1,0 +1,10 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces An example from \cite {jia2019} that demonstrates a relaxed graph substitution}}{12}{}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Convolution Operation with a 1x1 kernel matrix, a padding of zero, and stride 1}}{13}{}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A convolution operation after padding both, the kernel and the image.}}{13}{}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Fusing two kernel matrices}}{14}{}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces An illustration from \cite {bishop2023deep} that shows a multi-dimensional convolutional filter layer extended to include multiple independent filter channels.}}{14}{}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }

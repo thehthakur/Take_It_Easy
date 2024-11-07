@@ -1,33 +1,87 @@
 \relax 
+\@writefile{toc}{\contentsline {chapter}{Contents}{3}{}\protected@file@percent }
 \citation{jia2019}
+\citation{bishop2023deep}
+\@writefile{toc}{\contentsline {chapter}{List of Figures}{5}{}\protected@file@percent }
+\citation{jia2019}
+\citation{jia2019}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{7}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}Objectives}{7}{}\protected@file@percent }
+\citation{li2020deep}
+\citation{lattner2021mlir}
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Theoretical Background and Literature Review}{9}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Deep Learning Compilers and Motivation}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Intermediate Representations and The current Optimization Scenario}{9}{}\protected@file@percent }
+\citation{hloir}
+\citation{halideir}
+\citation{jouppi2017datacenter}
+\citation{li2020deep}
+\citation{li2020deep}
+\citation{wu2024hector}
+\citation{tf2016}
+\citation{pytorchdocs}
+\citation{onnxoptimizer}
+\citation{jia2019}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Motivation for Non-Greedy Approaches}{10}{}\protected@file@percent }
 \citation{he2016}
 \citation{jia2019}
-\@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Proposed Methodology}{11}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces An example from \cite  {jia2019} that demonstrates a relaxed graph substitution}}{1}{}\protected@file@percent }
-\newlabel{resnet}{{1.1}{1}{}{}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}Theoretical Background and Literature Review}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Motivating our Approach Using an Example}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}The backtracking Algorithm}{11}{}\protected@file@percent }
+\newlabel{backtracking}{{3.2}{11}{The backtracking Algorithm}{}{}}
+\citation{he2016}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces An example from \cite  {jia2019} that demonstrates a relaxed graph substitution}}{12}{}\protected@file@percent }
+\newlabel{resnet}{{3.1}{12}{Motivating our Approach Using an Example}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Diving Into the Transformations}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Kernel Expansion}{12}{}\protected@file@percent }
+\newlabel{kernelExpansion0}{{3.3.1}{13}{Kernel Expansion}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Convolution Operation with a 1x1 kernel matrix, a padding of zero, and stride 1}}{13}{}\protected@file@percent }
+\newlabel{kernelExpansion1}{{3.3.1}{13}{Kernel Expansion}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces A convolution operation after padding both, the kernel and the image.}}{13}{}\protected@file@percent }
+\newlabel{eq:enlarge1}{{3.1}{13}{Kernel Expansion}{}{}}
+\newlabel{eq:enlarge2}{{3.2}{13}{Kernel Expansion}{}{}}
+\newlabel{eq:enlarge2}{{3.3}{13}{Kernel Expansion}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Convolution Fusions}{13}{}\protected@file@percent }
+\citation{bishop2023deep}
+\citation{bishop2023deep}
+\newlabel{convFusion0}{{3.3.2}{14}{Convolution Fusions}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Fusing two kernel matrices}}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}Fusing Conv and Add Nodes}{14}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces An illustration from \cite  {bishop2023deep} that shows a multi-dimensional convolutional filter layer extended to include multiple independent filter channels.}}{14}{}\protected@file@percent }
+\newlabel{cnn_revision}{{3.5}{14}{Fusing Conv and Add Nodes}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}The Cost Model}{16}{}\protected@file@percent }
+\citation{onnxpython}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Future Work}{19}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Proposed Algorithm and Future Directions}{3}{}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Motivating our Approach Using an Example}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}The backtracking Algorithm}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Diving Into the Transformations}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Kernel Expansion and Fusing Convolutions}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Fusing Split and Add Nodes}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}The Cost Model}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Implementation Strategy and Future Work}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Regarding the Backtracking Algorithm}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Implementing Transformations for ONNX}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Fleshing Out the Cost Model}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Implementing Transformations for ONNX}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Regarding the Backtracking Algorithm}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Cost Model}{19}{}\protected@file@percent }
+\citation{jia2019}
 \bibstyle{plain}
 \bibdata{refs}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Conclusion}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Conclusion}{21}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\bibcite{he2016}{1}
-\bibcite{jia2019}{2}
-\gdef \@abspage@last{8}
+\bibcite{tf2016}{1}
+\bibcite{bishop2023deep}{2}
+\bibcite{pytorchdocs}{3}
+\bibcite{onnxoptimizer}{4}
+\bibcite{onnxpython}{5}
+\bibcite{he2016}{6}
+\bibcite{jia2019}{7}
+\bibcite{jouppi2017datacenter}{8}
+\bibcite{lattner2021mlir}{9}
+\bibcite{li2020deep}{10}
+\bibcite{halideir}{11}
+\bibcite{hloir}{12}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{23}{}\protected@file@percent }
+\bibcite{wu2024hector}{13}
+\@writefile{toc}{\contentsline {chapter}{Acknowledgements}{25}{}\protected@file@percent }
+\gdef \@abspage@last{25}

@@ -1,4 +1,26 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{tf2016}
+Mart\'{\i}n Abadi.
+\newblock Tensorflow: learning functions at scale.
+\newblock {\em SIGPLAN Not.}, 51(9):1, sep 2016.
+
+\bibitem{bishop2023deep}
+Christopher~M Bishop and Hugh Bishop.
+\newblock {\em Deep learning: Foundations and concepts}.
+\newblock Springer Nature, 2023.
+
+\bibitem{pytorchdocs}
+The~Linux Foundation.
+\newblock {\em PyTorch Docs, https://pytorch.org/docs/stable/index.html}, 2023.
+
+\bibitem{onnxoptimizer}
+The~Linux Foundation.
+\newblock {\em ONNX Optimizer, https://github.com/onnx/optimizer}, 2024.
+
+\bibitem{onnxpython}
+The~Linux Foundation.
+\newblock {\em ONNX With Python, https://onnx.ai/onnx/intro/python.html}, 2024.
 
 \bibitem{he2016}
 Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
@@ -11,5 +33,45 @@ Zhihao Jia, James Thomas, Todd Warszawski, Mingyu Gao, Matei Zaharia, and Alex
   Aiken.
 \newblock Optimizing dnn computation with relaxed graph substitutions.
 \newblock {\em Proceedings of Machine Learning and Systems}, 1:27--39, 2019.
+
+\bibitem{jouppi2017datacenter}
+Norman~P Jouppi, Cliff Young, Nishant Patil, David Patterson, Gaurav Agrawal,
+  Raminder Bajwa, Sarah Bates, Suresh Bhatia, Nan Boden, Al~Borchers, et~al.
+\newblock In-datacenter performance analysis of a tensor processing unit.
+\newblock In {\em Proceedings of the 44th annual international symposium on
+  computer architecture}, pages 1--12, 2017.
+
+\bibitem{lattner2021mlir}
+Chris Lattner, Mehdi Amini, Uday Bondhugula, Albert Cohen, Andy Davis, Jacques
+  Pienaar, River Riddle, Tatiana Shpeisman, Nicolas Vasilache, and Oleksandr
+  Zinenko.
+\newblock Mlir: Scaling compiler infrastructure for domain specific
+  computation.
+\newblock In {\em 2021 IEEE/ACM International Symposium on Code Generation and
+  Optimization (CGO)}, pages 2--14. IEEE, 2021.
+
+\bibitem{li2020deep}
+Mingzhen Li, Yi~Liu, Xiaoyan Liu, Qingxiao Sun, Xin You, Hailong Yang, Zhongzhi
+  Luan, Lin Gan, Guangwen Yang, and Depei Qian.
+\newblock The deep learning compiler: A comprehensive survey.
+\newblock {\em IEEE Transactions on Parallel and Distributed Systems},
+  32(3):708--727, 2020.
+
+\bibitem{halideir}
+TVM project.
+\newblock {\em Halide IR, https://github.com/dmlc/HalideIR}.
+
+\bibitem{hloir}
+TensorFlow.
+\newblock {\em HLO IR, https://github.com/tensorflow/mlir-hlo}.
+
+\bibitem{wu2024hector}
+Kun Wu, Mert Hidayeto{\u{g}}lu, Xiang Song, Sitao Huang, Da~Zheng, Israt Nisa,
+  and Wen-mei Hwu.
+\newblock Hector: An efficient programming and compilation framework for
+  implementing relational graph neural networks in gpu architectures.
+\newblock In {\em Proceedings of the 29th ACM International Conference on
+  Architectural Support for Programming Languages and Operating Systems, Volume
+  3}, pages 528--544, 2024.
 
 \end{thebibliography}

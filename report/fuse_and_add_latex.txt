@@ -1,0 +1,49 @@
+\subsection{Fusing Conv and Add Nodes}
+  One of the more non-obvious and harder to unpack transformations proved to be the fusion of a Convolutional node and an Add node. The process is best understood by first revisiting concepts of Convolution networks.
+  \begin{figure}[b!]
+	\begin{center}
+		\includegraphics[scale=0.3]{reportImages/CNN_revision_bishop.png}
+	\end{center}	
+	\caption{An illustration from \cite{bishop2023deep} that shows a  multi-dimensional convolutional filter layer extended to include multiple independent filter channels.}
+	\label{cnn_revision}
+\end{figure}
+  \begin{itemize}
+    \item An image with $J \times K$ pixels and C channels will be described by a tensor of dimensionality $J \times K \times C$. We introduce a filter described by a tensor of dimensionality $M \times M \times C$ comprising a separate $M \times M$ filter for each of the C channels.
+    \item Secondly, we introduce multiple such filters, each detecting a seperate abstract feature in the input image. The number of these specific filters are referred to as the channels of the kernel and are denoted by the third number in the notation $3 \times 3 \times 512$ for a convolutional layer.
+    \item For each filter, after performing the convolution operation across all channels of the input image, the resulting C channels are summed to produce the final feature map representing the abstract feature the filter is designed to detect.
+\end{itemize}
+
+Now with the basis of the convolutional approach laid down, we can explore the optimization. The input is a $3 \times 3 \times 512$ image which was formed after fusing two $3 \times 3 \times 256$ convolutional operations together. The first 256 channels out of the 512 denote the input that came from Conv1 and the rest 256 denote the channels that came from Conv2. As figure \ref{resnet} shows, the expected behaviour is for the Conv1 channels to undergo one more convolution, say Conv4, and then simply get added to the Conv2 output.
+
+The optimization here is to cleverly modify the kernel matrix of a new Conv operation, call it Conv3, that includes within it the Convolution operation on Conv1 channels and subsequent addition. The approach is as follows:
+  \begin{itemize}
+    \item In Conv3, there are 256 different filters. Each of these filters is responsible for extracting some abstract feature.
+    \item Each of these filters has 512 channels, 256 devoted to processing the channels consolidated from Conv1 and the remaining 256 for processing the add.
+    \item Note that each filter within the Conv4 layer has 256 channels within it to handle the 256 input channels from Conv1.
+    \item The fusion is accomplished in two steps. The first is to have the first 256 channels of Conv3 be initialized with the weights of the corresponding channel in the $3 \times 3 \times 256$ Conv4.
+    \item Now, we know that, per abstract feature, after carrying convolution over all channels, the final feature map is a result of summing up over all the channels. In our current arrangement the first 256 channels, when summed up, will give the output feature map corresponding to performing Conv4 for that abstract feature. The remaining part is to add to this sum precisely the channel that corresponds to Conv2, that, when added, will simulate doing a sum post convolution.
+    \item The trick here is to use the \textbf{identity kernel}, which simply outputs the input as is without modification. It is also called a do-nothing kernel.
+    \[ I = 
+\begin{bmatrix}
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+\]
+    \item Let us make a few constructs:
+    \begin{itemize}
+        \item Let 0 represent a 3x3 kernel filled with all zeros.
+        \item Let each row of the matrix represent the kernel corresponding to one of the 256 abstract features in Conv3.
+        \item Let $f_{i,j}$ denote a $k \times k$ filter for abstract feature $i$ and channel $j$.
+    \end{itemize} . 
+    \[
+        \begin{bmatrix}
+                f_{1,1} & f_{1,2} & f_{1,3} & \cdots & f_{1,256} & I & 0 & 0 & \cdots & 0\\
+                f_{2,1} & f_{2,2} & f_{2,3} & \cdots & f_{2,256} & 0 & I & 0 & \cdots & 0\\
+                \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \cdots & \vdots \\
+                f_{256,1} & f_{256,2} & f_{256,3} & \cdots & f_{256,256} & 0 & 0 & 0 & \cdots & I
+        \end{bmatrix}
+\]
+\item The above kernel matrix can be seen as the original Conv4 weight matrix concatenated with an "Identity" matrix. This identity matrix is actually a matrix of matrices where the diagonal elements are identity kernels.
+\end{itemize}
+By configuring the last 256 channels to either the identity matrix  $I$ or zero, as shown in the matrix above, we can selectively sum the layers that would have been added in the original computational graph.

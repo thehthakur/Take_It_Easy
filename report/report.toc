@@ -1,0 +1,23 @@
+\contentsline {chapter}{Contents}{3}{}%
+\contentsline {chapter}{List of Figures}{5}{}%
+\contentsline {chapter}{\numberline {1}Introduction}{7}{}%
+\contentsline {section}{\numberline {1.1}Objectives}{7}{}%
+\contentsline {chapter}{\numberline {2}Theoretical Background and Literature Review}{9}{}%
+\contentsline {section}{\numberline {2.1}Deep Learning Compilers and Motivation}{9}{}%
+\contentsline {subsection}{\numberline {2.1.1}Intermediate Representations and The current Optimization Scenario}{9}{}%
+\contentsline {subsection}{\numberline {2.1.2}Motivation for Non-Greedy Approaches}{10}{}%
+\contentsline {chapter}{\numberline {3}Proposed Methodology}{11}{}%
+\contentsline {section}{\numberline {3.1}Motivating our Approach Using an Example}{11}{}%
+\contentsline {section}{\numberline {3.2}The backtracking Algorithm}{11}{}%
+\contentsline {section}{\numberline {3.3}Diving Into the Transformations}{12}{}%
+\contentsline {subsection}{\numberline {3.3.1}Kernel Expansion}{12}{}%
+\contentsline {subsection}{\numberline {3.3.2}Convolution Fusions}{13}{}%
+\contentsline {subsection}{\numberline {3.3.3}Fusing Conv and Add Nodes}{14}{}%
+\contentsline {section}{\numberline {3.4}The Cost Model}{16}{}%
+\contentsline {chapter}{\numberline {4}Future Work}{19}{}%
+\contentsline {section}{\numberline {4.1}Implementing Transformations for ONNX}{19}{}%
+\contentsline {section}{\numberline {4.2}Regarding the Backtracking Algorithm}{19}{}%
+\contentsline {section}{\numberline {4.3}Cost Model}{19}{}%
+\contentsline {chapter}{\numberline {5}Conclusion}{21}{}%
+\contentsline {chapter}{Bibliography}{23}{}%
+\contentsline {chapter}{Acknowledgements}{25}{}%
