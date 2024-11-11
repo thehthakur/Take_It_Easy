@@ -5,7 +5,8 @@ from typing import List
 
 def fuse_conv_layers(model: onnx.onnx_ml_pb2.ModelProto, conv1_identifier: str, conv2_identifier: str) -> onnx.onnx_ml_pb2.ModelProto:
     graph = model.graph
-    print(graph)
+    for node in graph.node:
+        print node
     return model
 
 # example usage
