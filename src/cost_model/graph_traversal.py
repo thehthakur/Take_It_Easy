@@ -5,8 +5,8 @@ import onnx
 from onnx import ModelProto
 from typing import List, Any
 import heapq
-from costModel import returnFLOPs
-from compute_cost import compute_cost
+from cost_model.costModel import returnFLOPs
+from cost_model.compute_cost import compute_cost
 
 rootPath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../"))
 sys.path.insert(0, rootPath)
@@ -162,4 +162,4 @@ if __name__ == "__main__":
     model = onnx.load_model(model_path)
 
     # print(adjacency_graph(model))
-    calculate_cost(model)
+    print(calculate_cost(model))

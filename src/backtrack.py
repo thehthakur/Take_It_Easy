@@ -5,7 +5,7 @@ import heapq
 from utils import get_inference_time, apply_operation, render_onnx_with_netron, combine_images_with_annotations
 from graph_transforms.enlarge_conv_kernel import enlarge_conv_kernel
 from graph_transforms.fuse_conv_layers import fuse_conv_layers
-
+from cost_model.graph_traversal import calculate_cost
 
 # Backtracking with optional visualization
 def backtrack(model, cost_model, alpha, operations, visualize=True, output_image="path_timeline.png"):
@@ -18,7 +18,6 @@ def backtrack(model, cost_model, alpha, operations, visualize=True, output_image
     img_files_directory = "../assets/images"
     
     if visualize:
-        
         onnx.save_model(model, f"{onnx_files_directory}/steps/model_step_{step}.onnx")
 
     while queue and step < 3:
@@ -61,11 +60,12 @@ def backtrack(model, cost_model, alpha, operations, visualize=True, output_image
 
 if __name__ == "__main__":
     def cost_model(m: ModelProto):
-        return get_inference_time(m) # replace later with actual cost model
+        return calculate_cost(m)
+        # return get_inference_time(m) # replace later with actual cost model
 
-    model_path = "../assets/onnx_files/example_1_initial_model.onnx"
+    model_path = "assets/onnx_files/example_1_initial_model.onnx"
     model = onnx.load_model(model_path)
-    alpha = 200
+    alpha = 1.5
     operations = [enlarge_conv_kernel, fuse_conv_layers]
 
     optimized_model = backtrack(

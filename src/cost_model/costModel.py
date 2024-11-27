@@ -10,8 +10,8 @@ import math
 import random
 import re
 import json
-from costEstimation import get_flops
-from flop_calculator import *
+# from costEstimation import get_flops
+from cost_model.flop_calculator import *
 
 # TO DO:
 # 1. attrList in PPP should have attributes in the same order as the ones that go to the make_node function for each operator. This will allow us to set up a default node-creation for all operators without having to write separate cases for all of them.
