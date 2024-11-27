@@ -57,9 +57,6 @@ def fuse_conv_layers(model, conv1_name, conv2_name):
     assert conv1_child is not None, f"No direct child found for Conv1 ({conv1_name})"
     assert conv2_child is not None, f"No direct child found for Conv2 ({conv2_name})"
 
-    print(f"Conv1 Child: {conv1_child.name}")
-    print(f"Conv2 Child: {conv2_child.name}")
-
     # Get the weights and biases for the two layers
     conv1_w = next(init for init in graph.initializer if init.name == conv1_node.input[1])
     conv1_b = next(init for init in graph.initializer if init.name == conv1_node.input[2])
@@ -107,12 +104,6 @@ def fuse_conv_layers(model, conv1_name, conv2_name):
 
     # Add the new split node to the graph
     graph.node.extend([split_node])
-
-    print(conv1_child.input)
-    print(conv1_child.output)
-    print(conv2_child.input)
-    print(conv2_child.output)
-    
     
     # Remove the second convolution layer (conv2)
     graph.node.remove(conv2_node)
@@ -120,6 +111,7 @@ def fuse_conv_layers(model, conv1_name, conv2_name):
         if initializer.name in [conv2_w.name, conv2_b.name]:
             graph.initializer.remove(initializer)
 
+    print(f"Merged {conv1_name} and {conv2_name}")
     return model
 
 # example usage
