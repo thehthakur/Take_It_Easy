@@ -27,8 +27,7 @@ def find_direct_child_node(graph, conv_output):
             return node
     return None
 
-def merge_conv_layers(model_path, conv1_name, conv2_name, output_path):
-    model = onnx.load(model_path)
+def fuse_conv_layers(model, conv1_name, conv2_name):
     graph = model.graph
 
     conv1_node = None
@@ -86,6 +85,17 @@ def merge_conv_layers(model_path, conv1_name, conv2_name, output_path):
     # Modify the output shape of Conv1 to account for the increased channels (512 instead of 256)
     conv1_node.output[0] = "Conv1_Fused_Out"
 
+    for node in graph.node:
+        # Update nodes expecting Conv1_Out to use Conv1_Split1_Out
+        for i, input_name in enumerate(node.input):
+            if input_name == conv1_output:  # Replace old Conv1 output
+                node.input[i] = 'Conv1_Split1_Out'
+    
+        # Update nodes expecting Conv2_Out to use Conv1_Split2_Out
+        for i, input_name in enumerate(node.input):
+            if input_name == conv2_output:  # Replace old Conv2 output
+                node.input[i] = 'Conv1_Split2_Out'
+
     # Create a split node to split the output into two 256-channel tensors
     split_node = helper.make_node(
         'Split',
@@ -107,15 +117,12 @@ def merge_conv_layers(model_path, conv1_name, conv2_name, output_path):
     # Remove the second convolution layer (conv2)
     graph.node.remove(conv2_node)
 
-    # Save the updated model
-    onnx.save(model, output_path)
-    print(f"Model saved to {output_path}")
+    return model
 
 # example usage
 if __name__ == '__main__':
     # Example usage:
     model_path = "../../assets/onnx_files/example_1_transformation_1_enlarge_conv_kernel.onnx"
-    output_path = "merged_model.onnx"
     conv1_name = "Conv1"
     conv2_name = "Conv2"
-    merge_conv_layers(model_path, conv1_name, conv2_name, output_path)
+    fused_model = fuse_conv_layers(model_path, conv1_name, conv2_name)

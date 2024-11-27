@@ -11,6 +11,8 @@ def enlarge_conv_kernel(model: onnx.onnx_ml_pb2.ModelProto, node_to_modify: str,
         if node.name == node_to_modify:
             for attribute in node.attribute:
                 if attribute.name == 'kernel_shape':
+                    if attribute.ints[:] == enlarged_kernel_size:
+                        return -1
                     print(f"Original kernel shape: {attribute.ints}")
                     attribute.ints[:] = enlarged_kernel_size  # Update kernel shape
                     print(f"Updated kernel shape: {attribute.ints}")
