@@ -16,8 +16,9 @@ def backtrack(model, cost_model, alpha, operations, visualize=True, output_image
     optimized_mdl_cost = float(cost_model(optimized_model))
     path = []
     step = 0
-    onnx_files_directory = "../assets/onnx_files"
-    img_files_directory = "../assets/images"
+    onnx_files_directory = "assets/onnx_files"
+    img_files_directory = "assets/images"
+    
     onnx.save_model(model, f"{onnx_files_directory}/steps/model_step_{step}.onnx")
 
     while queue and step < 3:
@@ -79,4 +80,4 @@ if __name__ == "__main__":
         visualize=False,
         output_image="optimization_steps.png"
     )
-    onnx.save(optimized_model, "../assets/onnx_files/optimized_model.onnx")
+    onnx.save(optimized_model, "assets/onnx_files/optimized_model.onnx")

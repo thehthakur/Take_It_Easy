@@ -67,7 +67,7 @@ def lca_multiple(nodes, adj, parent):
 
     return current_lca
 
-def compute_cost(n, adj, parent, indegree_a, cost):
+def compute_cost(n, adj, parent, indegree_a, cost, mem_cost):
     total_costs = 0
     indegree = indegree_a.copy()
     costs = {i: Cost() for i in adj.keys()}
@@ -75,14 +75,14 @@ def compute_cost(n, adj, parent, indegree_a, cost):
 
     for i in adj.keys():
         if indegree[i] == 0:
-            total_costs += cost[i]
+            total_costs += cost[i] + mem_cost[i]
             q.append(i)
 
     while q:
         node = q.popleft()
 
         if indegree[node] == 0:
-            tmp = cost[node]
+            tmp = cost[node] + mem_cost[node]
             ss = 0
             mm = 0
             for x in parent[node]:
@@ -96,7 +96,7 @@ def compute_cost(n, adj, parent, indegree_a, cost):
             nodes = parent[node]
             lc = lca_multiple(nodes, adj, parent)
             if lc != -1 and len(parent[node]) == 1 and len(adj[lc]) == 1:
-                total_costs += cost[node]
+                total_costs += cost[node] + mem_cost[node]
 
         for nd in adj[node]:
             indegree[nd] -= 1
@@ -112,6 +112,7 @@ def compute_cost(n, adj, parent, indegree_a, cost):
     for i in adj.keys():
         if indegree_a[i] > 1:
             total_costs += (costs[i].maxi + costs[i].sum) / 2.0
+            total_costs += mem_cost[i]
 
     return total_costs
 
@@ -129,7 +130,7 @@ def solve():
         parent[v].append(u)
         indegree[v] += 1
 
-    total_cost = compute_cost(n, adj, parent, indegree, cost)
+    total_cost = compute_cost(n, adj, parent, indegree, cost, {})
     print(total_cost)
 
 
