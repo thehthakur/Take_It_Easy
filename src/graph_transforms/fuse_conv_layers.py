@@ -116,6 +116,9 @@ def fuse_conv_layers(model, conv1_name, conv2_name):
     
     # Remove the second convolution layer (conv2)
     graph.node.remove(conv2_node)
+    for initializer in list(graph.initializer):  # Use list() to avoid modifying the container during iteration
+        if initializer.name in [conv2_w.name, conv2_b.name]:
+            graph.initializer.remove(initializer)
 
     return model
 
