@@ -17,8 +17,7 @@ def backtrack(model, cost_model, alpha, operations, visualize=True, output_image
     onnx_files_directory = "../assets/onnx_files"
     img_files_directory = "../assets/images"
     
-    if visualize:
-        onnx.save_model(model, f"{onnx_files_directory}/steps/model_step_{step}.onnx")
+    onnx.save_model(model, f"{onnx_files_directory}/steps/model_step_{step}.onnx")
 
     while queue and step < 3:
         _, curr_model = heapq.heappop(queue)
@@ -33,8 +32,7 @@ def backtrack(model, cost_model, alpha, operations, visualize=True, output_image
                         optimized_model = mdl
                     heapq.heappush(queue, (mdl_cost, mdl))
                     step += 1
-                    if visualize:
-                        onnx.save_model(mdl, f"{onnx_files_directory}/steps/model_step_{step}.onnx")
+                    onnx.save_model(mdl, f"{onnx_files_directory}/steps/model_step_{step}.onnx")
                     path.append((f"model_step_{step - 1}.onnx", f"model_step_{step}.onnx", operation.__name__))
 
     # Render ONNX models and combine into visualization if requested
