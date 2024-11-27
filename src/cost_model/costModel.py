@@ -23,17 +23,27 @@ PES_PER_CORE=1
 PEAK_CPU_FLOPS = 256e9
 PPP_BENCH_OPS = ["Relu", "Conv", "Add"]
 
+def pppCost(op):
+    match op:
+        case "Add":
+            return 0.0009849600418215777
+        case "Conv":
+            return 0.32757440115964337
+        case "Relu":
+            return 0.015068830007166306
+    return 0.5
+
 def returnFLOPs(op, attrlist):
     print("[INFO] calculating FLOPs")
     match op:
         case "Add":
-            return add_flops(attrlist)
+            return add_flops(attrlist) * pppCost(op)
         case "Conv":
-            return conv_flops(attrlist)
+            return conv_flops(attrlist) * pppCost(op)
         case "Relu":
-            return relu_flops(attrlist)
+            return relu_flops(attrlist) * pppCost(op)
         case "Split":
-            return split_flops(attrlist)
+            return split_flops(attrlist) * pppCost(op)
     print("Assuming {op} to be zero flops")
     return 0
 
@@ -41,13 +51,13 @@ def returnMem(op, attrlist):
     print("[INFO] calculating MEM")
     match op:
         case "Add":
-            return add_mem(attrlist)
+            return add_mem(attrlist) * 0.16024 / 2097152000
         case "Conv":
-            return conv_mem(attrlist)
+            return conv_mem(attrlist) * 0.16024 / 2097152000
         case "Relu":
-            return relu_mem(attrlist)
+            return relu_mem(attrlist) * 0.16024 / 2097152000
         case "Split":
-            return split_mem(attrlist)
+            return split_mem(attrlist) * 0.16024 / 2097152000
     print("Assuming {op} to be zero MEM")
     return 0
 
@@ -191,7 +201,7 @@ def randAttrListGen(op):
 def findPPP():
     print("finding PPP")
     PPPDict = {}
-    numOfIterations = 15
+    numOfIterations = 30
     for op in PPP_BENCH_OPS:
         avgPPP = 0
         benchCount = 0
@@ -402,7 +412,7 @@ def estimateGraphCost(G: onnx.GraphProto):
 if __name__ == "__main__":
     estimatePPP = findPPP()
     print(f"PPPs for various operations: {estimatePPP}")
-    model = onnx.load("../../assets/onnx_files/example_1_initial_model.onnx")
+    model = onnx.load("assets/onnx_files/example_1_initial_model.onnx")
     graph = model.graph
     l = getSyncBarriers(graph)
     print(f"list of sync barriers: {l}")
