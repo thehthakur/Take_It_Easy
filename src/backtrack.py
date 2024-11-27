@@ -76,4 +76,4 @@ if __name__ == "__main__":
         visualize=False,
         output_image="optimization_steps.png"
     )
-    onnx.save(optimized_model, "../assets/onnx_files/optimized_model.onnx")
+    onnx.save(optimized_model, "assets/onnx_files/optimized_model.onnx")
