@@ -11,14 +11,14 @@ import heapq
 rootPath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../"))
 sys.path.insert(0, rootPath)
 
-def apply_operation(model: ModelProto, opeartion):
+def apply_operation(model: ModelProto, operation):
     graph = model.graph
 
     new_models = []
 
     for node in graph.node:
         if node.op_type == "Conv":
-            new_model = opeartion(model, node.name, [3,3])
+            new_model = operation(model, node.name, [3,3])
             new_models.append(new_model)
 
     return new_models
