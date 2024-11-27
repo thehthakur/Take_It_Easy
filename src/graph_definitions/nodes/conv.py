@@ -3,12 +3,13 @@ import onnx
 from onnx import helper
 
 class ConvLayer:
-    def __init__(self, name, c_in, c_out, kernel_shape, pads, weights=None, bias=None):
+    def __init__(self, name, c_in, c_out, kernel_shape, pads, strides=[1,1], weights=None, bias=None):
         self.name = name
         self.c_in = c_in
         self.c_out = c_out
         self.kernel_shape = kernel_shape
         self.pads = pads
+        self.strides = strides
 
         # Initialize weights and bias if not provided
         self.W = weights if weights is not None else np.ones((c_out, c_in, *kernel_shape)).astype(np.float32)
@@ -37,5 +38,5 @@ class ConvLayer:
             outputs=[output_name],
             kernel_shape=self.kernel_shape,
             pads=self.pads,
-            strides=[1, 1],
+            strides=self.strides,
         )

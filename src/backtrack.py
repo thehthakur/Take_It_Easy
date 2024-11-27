@@ -14,8 +14,8 @@ def backtrack(model, cost_model, alpha, operations, visualize=True, output_image
     optimized_model = model
     path = []
     step = 0
-    onnx_files_directory = "../assets/onnx_files"
-    img_files_directory = "../assets/images"
+    onnx_files_directory = "assets/onnx_files"
+    img_files_directory = "assets/images"
     
     onnx.save_model(model, f"{onnx_files_directory}/steps/model_step_{step}.onnx")
 

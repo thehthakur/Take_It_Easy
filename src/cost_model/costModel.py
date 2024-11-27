@@ -12,6 +12,7 @@ import re
 import json
 # from costEstimation import get_flops
 from cost_model.flop_calculator import *
+from cost_model.memory_calculator import *
 
 # TO DO:
 # 1. attrList in PPP should have attributes in the same order as the ones that go to the make_node function for each operator. This will allow us to set up a default node-creation for all operators without having to write separate cases for all of them.
@@ -34,6 +35,20 @@ def returnFLOPs(op, attrlist):
         case "Split":
             return split_flops(attrlist)
     print("Assuming {op} to be zero flops")
+    return 0
+
+def returnMem(op, attrlist):
+    print("[INFO] calculating MEM")
+    match op:
+        case "Add":
+            return add_mem(attrlist)
+        case "Conv":
+            return conv_mem(attrlist)
+        case "Relu":
+            return relu_mem(attrlist)
+        case "Split":
+            return split_mem(attrlist)
+    print("Assuming {op} to be zero MEM")
     return 0
 
 def createONNXModel(operation: str, attrList) -> onnx.ModelProto:

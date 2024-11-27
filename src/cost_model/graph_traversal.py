@@ -5,7 +5,7 @@ import onnx
 from onnx import ModelProto
 from typing import List, Any
 import heapq
-from cost_model.costModel import returnFLOPs
+from cost_model.costModel import returnFLOPs, returnMem
 from cost_model.compute_cost import compute_cost
 
 rootPath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../"))
@@ -137,9 +137,21 @@ def get_node_to_flops(model: ModelProto) -> dict[str, int]:
         node_to_flops[node.name] = returnFLOPs(node.op_type, node_attrs)
     return node_to_flops
 
+def get_node_to_mem(model: ModelProto) -> dict[str, int]:
+    node_to_flops = {}
+    for node in model.graph.input:
+        node_to_flops[node.name] = 0
+    for node in model.graph.output:
+        node_to_flops[node.name] = 0
+    for node in model.graph.node:
+        node_attrs = extract_node_attributes(node, model)
+        node_to_flops[node.name] = returnMem(node.op_type, node_attrs)
+    return node_to_flops
+
 def calculate_cost(model: ModelProto):
     name_to_node = get_name_to_node(model)
     node_to_cost = get_node_to_flops(model)
+    node_to_mem_cost = get_node_to_mem(model)
     adj_list = adjacency_graph(model)
     parent = reverse_adjacency_graph(adj_list)
     indegree = calculate_indegree(adj_list)
@@ -150,7 +162,7 @@ def calculate_cost(model: ModelProto):
     # print(parent)
     # print(indegree)
 
-    cost = compute_cost(len(name_to_node), adj_list, parent, indegree, node_to_cost)
+    cost = compute_cost(len(name_to_node), adj_list, parent, indegree, node_to_cost, node_to_mem_cost)
     return cost
 
 if __name__ == "__main__":
