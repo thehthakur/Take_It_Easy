@@ -37,13 +37,13 @@ def returnFLOPs(op, attrlist):
     print("[INFO] calculating FLOPs")
     match op:
         case "Add":
-            return add_flops(attrlist) * pppCost(op)
+            return add_flops(attrlist) * pppCost(op) / 256e9
         case "Conv":
-            return conv_flops(attrlist) * pppCost(op)
+            return conv_flops(attrlist) * pppCost(op) / 256e9
         case "Relu":
-            return relu_flops(attrlist) * pppCost(op)
+            return relu_flops(attrlist) * pppCost(op) / 256e9
         case "Split":
-            return split_flops(attrlist) * pppCost(op)
+            return split_flops(attrlist) * pppCost(op) /256e9
     print("Assuming {op} to be zero flops")
     return 0
 
