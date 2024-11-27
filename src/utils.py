@@ -114,8 +114,6 @@ def get_inference_time(onnx_model):
     start_time = time.time()
     outputs = session.run(None, {input_name: dummy_input})
     inference_time = time.time() - start_time
-
-    print(f"Inference time: {inference_time:.6f} seconds")
     return inference_time
 
 def render_onnx_with_netron(onnx_path, output_image_path, netron_port=8081):

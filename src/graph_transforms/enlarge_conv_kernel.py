@@ -13,9 +13,7 @@ def enlarge_conv_kernel(model: onnx.onnx_ml_pb2.ModelProto, node_to_modify: str,
                 if attribute.name == 'kernel_shape':
                     if attribute.ints[:] == enlarged_kernel_size:
                         return -1
-                    print(f"Original kernel shape: {attribute.ints}")
                     attribute.ints[:] = enlarged_kernel_size  # Update kernel shape
-                    print(f"Updated kernel shape: {attribute.ints}")
                 elif attribute.name == 'pads':
                     attribute.ints[:] = [1, 1, 1, 1]
 
@@ -24,7 +22,6 @@ def enlarge_conv_kernel(model: onnx.onnx_ml_pb2.ModelProto, node_to_modify: str,
         if initializer.name == f"{node_to_modify}_W":
             # Convert the initializer to a NumPy array
             weights = numpy_helper.to_array(initializer)
-            print(f"Original weight shape: {weights.shape}")
 
             # Calculate new weight shape based on the enlarged kernel size
             new_weight_shape = (
@@ -42,9 +39,8 @@ def enlarge_conv_kernel(model: onnx.onnx_ml_pb2.ModelProto, node_to_modify: str,
             new_initializer = numpy_helper.from_array(new_weights, initializer.name)
             graph.initializer.remove(initializer)  # Remove old initializer
             graph.initializer.append(new_initializer)  # Add updated initializer
-
-            print(f"Updated weight shape: {new_weights.shape}")
             break
+    print(f"Enlarged kernel size to {enlarged_kernel_size[0]}, {enlarged_kernel_size[1]}")
     return model
 
 # example usage
