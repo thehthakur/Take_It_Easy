@@ -72,12 +72,12 @@ if __name__ == "__main__":
 
     mdl = onnx.load(model1_path)
     print(calculate_cost(mdl))
-    # mdl = onnx.load(model2_path)
-    # print(calculate_cost(mdl))
-    # mdl = onnx.load(model3_path)
-    # print(calculate_cost(mdl))
-    # mdl = onnx.load(model4_path)
-    # print(calculate_cost(mdl))
+    mdl = onnx.load(model2_path)
+    print(calculate_cost(mdl))
+    mdl = onnx.load(model3_path)
+    print(calculate_cost(mdl))
+    mdl = onnx.load(model4_path)
+    print(calculate_cost(mdl))
 
     time_model1 = benchmark_model(model1_path, 100, "model1.csv")
     print(f"Model 1 Average Time: {time_model1:.6f} seconds")

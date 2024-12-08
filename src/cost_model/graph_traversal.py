@@ -17,6 +17,23 @@ def extract_node_attributes(node, model):
     if node.op_type == "Add":
         input_name = node.input
 
+        for _, ndd in enumerate(shape_info.graph.value_info):
+            for input_n in input_name:
+                if ndd.name == input_n:
+                    dims = tuple(dim.dim_value for dim in ndd.type.tensor_type.shape.dim)
+                    return dims
+
+        for _, ndd in enumerate(shape_info.graph.input):
+            for input_n in input_name:
+                if ndd.name == input_n:
+                    dims = tuple(dim.dim_value for dim in ndd.type.tensor_type.shape.dim)
+                    return dims
+
+        return None
+    
+    elif node.op_type == "Sub":
+        input_name = node.input
+
         # print(node.input)
         # print(shape_info.graph.value_info)
         for _, ndd in enumerate(shape_info.graph.value_info):
@@ -25,31 +42,29 @@ def extract_node_attributes(node, model):
                     dims = tuple(dim.dim_value for dim in ndd.type.tensor_type.shape.dim)
                     return dims
     
-        return None
-    
-    elif node.op_type == "Sub":
-        input_name = node.input
-
-        print(node.input)
-        print(shape_info.graph.value_info)
-        for _, ndd in enumerate(shape_info.graph.value_info):
+        for _, ndd in enumerate(shape_info.graph.input):
             for input_n in input_name:
                 if ndd.name == input_n:
                     dims = tuple(dim.dim_value for dim in ndd.type.tensor_type.shape.dim)
                     return dims
-    
+
         return None
     
     elif node.op_type == "Mul":
-        input_name = node.output
+        input_name = node.input
 
-        print(node.output)
-        print(shape_info.graph.value_info)
         for _, ndd in enumerate(shape_info.graph.value_info):
             for input_n in input_name:
                 if ndd.name == input_n:
                     dims = tuple(dim.dim_value for dim in ndd.type.tensor_type.shape.dim)
                     return dims
+
+        for _, ndd in enumerate(shape_info.graph.input):
+            for input_n in input_name:
+                if ndd.name == input_n:
+                    dims = tuple(dim.dim_value for dim in ndd.type.tensor_type.shape.dim)
+                    return dims
+        
         return None
     
     elif node.op_type == "Relu":
@@ -60,6 +75,13 @@ def extract_node_attributes(node, model):
                 if ndd.name == input_n:
                     dims = tuple(dim.dim_value for dim in ndd.type.tensor_type.shape.dim)
                     return dims
+                
+        for _, ndd in enumerate(shape_info.graph.input):
+            for input_n in input_name:
+                if ndd.name == input_n:
+                    dims = tuple(dim.dim_value for dim in ndd.type.tensor_type.shape.dim)
+                    return dims
+                
         return None
     
     elif node.op_type == "Conv":
@@ -177,17 +199,17 @@ def get_node_to_mem(model: ModelProto) -> dict[str, int]:
 
 def calculate_cost(model: ModelProto):
     name_to_node = get_name_to_node(model)
-    print(name_to_node)
     node_to_cost = get_node_to_flops(model)
     node_to_mem_cost = get_node_to_mem(model)
     adj_list = adjacency_graph(model)
     parent = reverse_adjacency_graph(adj_list)
     indegree = calculate_indegree(adj_list)
 
-    print(node_to_cost)
-    print(adj_list)
-    print(parent)
-    print(indegree)
+    # print(name_to_node)
+    # print(node_to_cost)
+    # print(adj_list)
+    # print(parent)
+    # print(indegree)
 
     cost = compute_cost(len(name_to_node), adj_list, parent, indegree, node_to_cost, node_to_mem_cost)
     return cost
