@@ -27,6 +27,10 @@ def pppCost(op):
     match op:
         case "Add":
             return 0.0009849600418215777
+        case "Sub":
+            return 0.5
+        case "Mul":
+            return 0.5
         case "Conv":
             return 0.32757440115964337
         case "Relu":
@@ -38,13 +42,17 @@ def returnFLOPs(op, attrlist):
     match op:
         case "Add":
             return add_flops(attrlist) * pppCost(op) / 256e9
+        case "Sub":
+            return sub_flops(attrlist) * pppCost(op) / 256e9
+        case "Mul":
+            return mul_flops(attrlist) * pppCost(op) / 256e9
         case "Conv":
             return conv_flops(attrlist) * pppCost(op) / 256e9
         case "Relu":
             return relu_flops(attrlist) * pppCost(op) / 256e9
         case "Split":
             return split_flops(attrlist) * pppCost(op) /256e9
-    print("Assuming {op} to be zero flops")
+    print(f"Assuming {op} to be zero flops")
     return 0
 
 def returnMem(op, attrlist):
@@ -52,13 +60,17 @@ def returnMem(op, attrlist):
     match op:
         case "Add":
             return add_mem(attrlist) * 0.16024 / 2097152000
+        case "Sub":
+            return sub_mem(attrlist) * 0.16024 / 2097152000
+        case "Mul":
+            return mul_mem(attrlist) * 0.16024 / 2097152000
         case "Conv":
             return conv_mem(attrlist) * 0.16024 / 2097152000
         case "Relu":
             return relu_mem(attrlist) * 0.16024 / 2097152000
         case "Split":
             return split_mem(attrlist) * 0.16024 / 2097152000
-    print("Assuming {op} to be zero MEM")
+    print(f"Assuming {op} to be zero MEM")
     return 0
 
 def createONNXModel(operation: str, attrList) -> onnx.ModelProto:

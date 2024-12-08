@@ -20,5 +20,18 @@ def conv_flops(attrlist):
     flops = 2*(xOut**2)*(channels*kernelSize**2)*filters
     return flops
 
+# Element-wise multiplication FLOPs
+def mul_flops(attrlist):
+    print(attrlist)
+    shapes = np.array(attrlist)
+    flops = np.prod(shapes)
+    return flops
+
+# Element-wise subtraction FLOPs
+def sub_flops(attrlist):
+    shapes = np.array(attrlist)
+    flops = np.prod(shapes)
+    return flops
+
 def split_flops(attrlist):
     return 0

@@ -54,7 +54,7 @@ def lca(u, v, adj, parent):
         if i in nodes and len(adj_sub[i]) == 0:
             return i
 
-    return 0
+    return None
 
 def lca_multiple(nodes, adj, parent):
     if not nodes:
@@ -64,7 +64,6 @@ def lca_multiple(nodes, adj, parent):
     current_lca = nodes[0]
     for node in nodes[1:]:
         current_lca = lca(current_lca, node, adj, parent)
-
     return current_lca
 
 def compute_cost(n, adj, parent, indegree_a, cost, mem_cost):
@@ -104,9 +103,10 @@ def compute_cost(n, adj, parent, indegree_a, cost, mem_cost):
                 if indegree_a[nd] > 1:
                     nodes = parent[nd]
                     lc = lca_multiple(nodes, adj, parent)
-                    for x in nodes:
-                        costs[x].maxi = 0
-                        costs[x].sum -= (costs[lc].sum + costs[lc].maxi) / 2.0
+                    if lc != -1 and lc != None:
+                        for x in nodes:
+                            costs[x].maxi = 0
+                            costs[x].sum -= (costs[lc].sum + costs[lc].maxi) / 2.0
                 q.append(nd)
 
     for i in adj.keys():

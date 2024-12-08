@@ -9,6 +9,20 @@ def add_mem(attrlist):
     return bytes_used
 
 # attrlist contains the shape of the input
+def sub_mem(attrlist):
+    shapes = np.array(attrlist)
+    total_elements = np.prod(shapes)
+    bytes_used = total_elements * 4
+    return bytes_used
+
+# attrlist contains the shape of the input
+def mul_mem(attrlist):
+    shapes = np.array(attrlist)
+    total_elements = np.prod(shapes)
+    bytes_used = total_elements * 4
+    return bytes_used
+
+# attrlist contains the shape of the input
 def relu_mem(attrlist):
     shapes = np.array(attrlist)
     total_elements = np.prod(shapes)
